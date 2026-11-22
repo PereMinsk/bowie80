@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOWIE 80 · Where's the party?</title>
+<meta name="description" content="A birthday party for Bowie's 80th. Join us.">
+<meta property="og:title" content="BOWIE 80 · Where's the party?">
+<meta property="og:description" content="Fri 8 Jan 2027 · 22:00 · La Bacanal. Sign up and bring your best moves.">
+<meta property="og:image" content="moonlight.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0d14; --paper:#f5f0e6; --red:#e3262b; --blue:#3d6bff; --muted:rgba(245,240,230,.72);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%;background:var(--ink)}
+  body{font-family:"Inter",system-ui,sans-serif;color:var(--paper);overflow-x:hidden}
+
+  /* full-bleed looping footage */
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:#000 url("moonlight.jpg") center/cover no-repeat}
+  .bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.15) contrast(1.05)}
+  .bg::after{
+    content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(90deg,rgba(11,13,20,.92) 0%,rgba(11,13,20,.55) 45%,rgba(11,13,20,.25) 100%),
+      linear-gradient(0deg,rgba(11,13,20,.85) 0%,transparent 40%);
+  }
+
+  .wrap{
+    position:relative;z-index:2;min-height:100vh;max-width:1240px;margin:0 auto;
+    display:grid;grid-template-columns:1.25fr .9fr;gap:48px;align-items:end;padding:48px 32px 56px;
+  }
+  @media (max-width:880px){.wrap{grid-template-columns:1fr;align-items:start;padding:24px 20px 40px;gap:28px;min-height:auto}}
+
+  /* left: title block */
+  .top{position:absolute;top:28px;left:32px;right:32px;display:flex;justify-content:space-between;
+       font-weight:800;font-size:13px;letter-spacing:.28em;text-transform:uppercase}
+  .top span:last-child{color:var(--red)}
+  @media (max-width:880px){.top{position:static;grid-column:1;left:auto;right:auto;font-size:11px;letter-spacing:.2em;gap:12px;margin-bottom:24vh}}
+
+  .title{padding-bottom:8px}
+  .kicker{display:inline-block;background:var(--red);color:var(--paper);font-weight:800;font-size:14px;
+          letter-spacing:.3em;text-transform:uppercase;padding:8px 14px;margin-bottom:18px}
+  h1{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;
+     font-size:clamp(96px,17vw,230px);line-height:.9;letter-spacing:-.01em}
+  h1 .num{color:var(--red);display:block;margin-top:.06em}
+  .tag{margin-top:18px;font-size:clamp(18px,2.2vw,24px);font-weight:600;max-width:28ch;color:var(--muted)}
+  .tag b{color:var(--paper)}
+
+  /* right: info + form card */
+  .card{background:var(--paper);color:var(--ink);padding:30px 28px 28px;position:relative;
+        box-shadow:12px 12px 0 var(--red)}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:8px;background:var(--blue)}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin:6px 0 26px;padding-bottom:22px;border-bottom:2px solid var(--ink)}
+  .facts .wide{grid-column:1 / -1}
+  .fact b{display:block;font-size:11px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+  .fact span,.fact a{font-family:"Anton",sans-serif;font-size:30px;line-height:1;text-transform:uppercase;color:var(--ink);text-decoration:none}
+  .fact a{border-bottom:3px solid var(--blue)}
+  .fact a:hover{color:var(--blue)}
+
+  h2{font-family:"Anton",sans-serif;font-weight:400;font-size:34px;text-transform:uppercase;line-height:1;margin-bottom:6px}
+  .sub{font-size:14px;color:#555;margin-bottom:12px}
+  label{display:block;font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin:14px 0 6px}
+  input{width:100%;padding:13px 14px;font:inherit;font-size:17px;color:var(--ink);background:#fff;
+        border:2px solid var(--ink);border-radius:0;outline:none;transition:box-shadow .15s}
+  input:focus{box-shadow:4px 4px 0 var(--blue)}
+  button{margin-top:22px;width:100%;padding:16px;font-family:"Anton",sans-serif;font-size:26px;letter-spacing:.06em;
+         text-transform:uppercase;color:var(--paper);background:var(--ink);border:none;cursor:pointer;
+         box-shadow:6px 6px 0 var(--blue);transition:transform .1s,box-shadow .1s,background .2s}
+  button:hover{background:var(--red);transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--blue)}
+  button:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--blue)}
+  button[disabled]{opacity:.6;cursor:wait}
+  .msg{margin-top:12px;font-weight:700;font-size:14px;min-height:1.2em}
+  .msg.err{color:var(--red)}
+  .done{display:none}
+  .done h2{color:var(--red)}
+  .done p{font-size:16px;margin-top:6px}
+  .hp{position:absolute;left:-9999px}
+
+  footer{position:relative;z-index:2;text-align:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:0 0 22px}
+
+  /* entrance */
+  .title,.card{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+  .card{animation-delay:.15s}
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <video autoplay muted loop playsinline preload="auto" poster="moonlight.jpg">
+    <source src="moonlight.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="wrap">
+  <div class="top"><span>Bowie 80 · A fan tribute</span><span>1947 — 2027</span></div>
+
+  <section class="title">
+    <span class="kicker">Where's the party?</span>
+    <h1>Bowie<span class="num">80</span></h1>
+    <p class="tag">Turning eighty <b>never looked this good.</b></p>
+  </section>
+
+  <section class="card">
+    <div class="facts">
+      <div class="fact"><b>When</b><span id="f-date"></span></div>
+      <div class="fact"><b>Time</b><span id="f-time"></span></div>
+      <div class="fact wide"><b>Where</b><span id="f-place"></span></div>
+    </div>
+
+    <form id="rsvp" novalidate>
+      <h2>Count me in</h2>
+      <p class="sub">Put your name on the list. Bring your best moves.</p>
+      <label for="name">Your name</label>
+      <input id="name" name="name" required autocomplete="name" placeholder="Ziggy, probably">
+      <label for="song">Favourite Bowie song</label>
+      <input id="song" name="song" list="songs" placeholder="For the party playlist">
+      <datalist id="songs">
+        <option>Let's Dance</option><option>Modern Love</option><option>China Girl</option>
+        <option>Starman</option><option>Heroes</option><option>Life on Mars?</option>
+        <option>Ashes to Ashes</option><option>Space Oddity</option><option>Changes</option>
+        <option>Rebel Rebel</option><option>Golden Years</option><option>Fame</option>
+        <option>Under Pressure</option><option>Ziggy Stardust</option><option>The Jean Genie</option>
+        <option>Fashion</option><option>Blue Jean</option><option>Lazarus</option>
+      </datalist>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" id="send">I'm in</button>
+      <p class="msg" id="msg" role="status"></p>
+    </form>
+
+    <div class="done" id="done">
+      <h2>You're on the list</h2>
+      <p>See you on the dance floor. Don't tell him where it is.</p>
+    </div>
+  </section>
+</div>
+
+<footer>Bowie 80 · A fan tribute</footer>
+
+<script>
+/* ===== EDIT HERE ===== */
+var CONFIG = {
+  date:  "Fri 8 Jan 2027",
+  time:  "22:00",
+  place: "La Bacanal",
+  mapUrl: "https://maps.app.goo.gl/cqtD6J8fcMHhVHr88",
+  endpoint: "https://script.google.com/macros/s/AKfycbytf_NVuWkhPH2i4vuTy2MuDx7zwVa80kfLtf6PhBnm9RiipmdfEK59xrJ9UqcgpcE/exec"
+};
+/* ===================== */
+
+document.getElementById("f-date").textContent = CONFIG.date;
+document.getElementById("f-time").textContent = CONFIG.time;
+var pl = document.getElementById("f-place");
+if (CONFIG.mapUrl) {
+  var a = document.createElement("a"); a.href = CONFIG.mapUrl; a.target = "_blank"; a.rel = "noopener";
+  a.textContent = CONFIG.place + " ↗"; pl.replaceWith(a); a.id = "f-place";
+} else { pl.textContent = CONFIG.place; }
+
+var form = document.getElementById("rsvp"), msg = document.getElementById("msg"), btn = document.getElementById("send");
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+  msg.className = "msg"; msg.textContent = "";
+  var name = form.name.value.trim(), song = form.song.value.trim();
+  if (form.website.value) return;
+  if (!name) { msg.className = "msg err"; msg.textContent = "We need a name for the list."; form.name.focus(); return; }
+  btn.disabled = true; btn.textContent = "Sending…";
+  fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", body: new URLSearchParams({ name: name, song: song }) })
+    .then(function(){ form.style.display = "none"; document.getElementById("done").style.display = "block"; })
+    .catch(function(){
+      btn.disabled = false; btn.textContent = "I'm in";
+      msg.className = "msg err"; msg.textContent = "Something went wrong. Try again.";
+    });
+});
+</script>
+</body>
+</html>
