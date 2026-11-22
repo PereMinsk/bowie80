@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BOWIE 80 · Where's the party?</title>
-<meta name="description" content="A birthday party for Bowie's 80th. Join us.">
-<meta property="og:title" content="BOWIE 80 · Where's the party?">
-<meta property="og:description" content="Fri 8 Jan 2027 · 22:00 · La Bacanal. Sign up and bring your best moves.">
+<title>BOWIE 80 · On és la festa?</title>
+<meta name="description" content="Festa homenatge pels 80 anys de Bowie. Apunta-t'hi.">
+<meta property="og:title" content="BOWIE 80 · On és la festa?">
+<meta property="og:description" content="Dv. 8 de gener de 2027 · 22 h · La Bacanal. Apunta't i porta els teus millors passos de ball.">
 <meta property="og:image" content="moonlight.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,6 @@
   }
   @media (max-width:880px){.wrap{grid-template-columns:1fr;align-items:start;padding:24px 20px 40px;gap:28px;min-height:auto}}
 
-  /* left: title block */
   .top{position:absolute;top:28px;left:32px;right:32px;display:flex;justify-content:space-between;
        font-weight:800;font-size:13px;letter-spacing:.28em;text-transform:uppercase}
   .top span:last-child{color:var(--red)}
@@ -50,7 +49,6 @@
   .tag{margin-top:18px;font-size:clamp(18px,2.2vw,24px);font-weight:600;max-width:28ch;color:var(--muted)}
   .tag b{color:var(--paper)}
 
-  /* right: info + form card */
   .card{background:var(--paper);color:var(--ink);padding:30px 28px 28px;position:relative;
         box-shadow:12px 12px 0 var(--red)}
   .card::before{content:"";position:absolute;top:0;left:0;right:0;height:8px;background:var(--blue)}
@@ -78,11 +76,35 @@
   .done{display:none}
   .done h2{color:var(--red)}
   .done p{font-size:16px;margin-top:6px}
+  .done .pay{margin-top:14px;padding:12px 14px;background:var(--ink);color:var(--paper);font-weight:600;font-size:15px}
   .hp{position:absolute;left:-9999px}
+
+  /* practical info */
+  .info{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:24px 32px 64px}
+  @media (max-width:880px){.info{padding:8px 20px 48px}}
+  .info-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  .info h3{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(40px,6vw,72px);line-height:.95}
+  .info h3 span{color:var(--red)}
+  .info-head p{max-width:42ch;color:var(--muted);font-size:17px}
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  @media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:600px){.grid{grid-template-columns:1fr}}
+  .tile{background:rgba(11,13,20,.82);backdrop-filter:blur(6px);border:2px solid rgba(245,240,230,.16);padding:24px 22px 22px}
+  .tile.hot{background:var(--paper);color:var(--ink);border-color:var(--paper);box-shadow:8px 8px 0 var(--red)}
+  .tile .lbl{font-size:11px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+  .tile .big{font-family:"Anton",sans-serif;font-size:56px;line-height:.95;margin-bottom:12px}
+  .tile h4{font-family:"Anton",sans-serif;font-weight:400;font-size:28px;line-height:1.05;text-transform:uppercase;margin-bottom:10px}
+  .tile p{font-size:16px;line-height:1.5;color:var(--muted)}
+  .tile.hot p{color:#333}
+  .tile p + p{margin-top:8px}
+  .prices{list-style:none;margin-top:12px}
+  .prices li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px dashed rgba(245,240,230,.22);font-size:16px}
+  .prices li b{font-family:"Anton",sans-serif;font-weight:400;font-size:22px;white-space:nowrap}
+  .tile.wide{grid-column:span 2}
+  @media (max-width:600px){.tile.wide{grid-column:auto}}
 
   footer{position:relative;z-index:2;text-align:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding:0 0 22px}
 
-  /* entrance */
   .title,.card{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
   .card{animation-delay:.15s}
   @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
@@ -97,28 +119,28 @@
 </div>
 
 <div class="wrap">
-  <div class="top"><span>Bowie 80 · A fan tribute</span><span>1947 — 2027</span></div>
+  <div class="top"><span>Bowie 80 · Homenatge</span><span>1947 — 2027</span></div>
 
   <section class="title">
-    <span class="kicker">Where's the party?</span>
+    <span class="kicker">On és la festa?</span>
     <h1>Bowie<span class="num">80</span></h1>
-    <p class="tag">Turning eighty <b>never looked this good.</b></p>
+    <p class="tag">Fer vuitanta anys<br><b>mai havia quedat tan bé.</b></p>
   </section>
 
   <section class="card">
     <div class="facts">
-      <div class="fact"><b>When</b><span id="f-date"></span></div>
-      <div class="fact"><b>Time</b><span id="f-time"></span></div>
-      <div class="fact wide"><b>Where</b><span id="f-place"></span></div>
+      <div class="fact"><b>Quan</b><span id="f-date"></span></div>
+      <div class="fact"><b>Hora</b><span id="f-time"></span></div>
+      <div class="fact wide"><b>On</b><span id="f-place"></span></div>
     </div>
 
     <form id="rsvp" novalidate>
-      <h2>Count me in</h2>
-      <p class="sub">Put your name on the list. Bring your best moves.</p>
-      <label for="name">Your name</label>
-      <input id="name" name="name" required autocomplete="name" placeholder="Ziggy, probably">
-      <label for="song">Favourite Bowie song</label>
-      <input id="song" name="song" list="songs" placeholder="For the party playlist">
+      <h2>Compta amb mi</h2>
+      <p class="sub">Posa el teu nom a la llista i porta els teus millors passos de ball.</p>
+      <label for="name">El teu nom</label>
+      <input id="name" name="name" required autocomplete="name" placeholder="Ziggy, segurament">
+      <label for="song">La teva cançó preferida de Bowie</label>
+      <input id="song" name="song" list="songs" placeholder="Per a la playlist de la festa">
       <datalist id="songs">
         <option>Let's Dance</option><option>Modern Love</option><option>China Girl</option>
         <option>Starman</option><option>Heroes</option><option>Life on Mars?</option>
@@ -128,24 +150,70 @@
         <option>Fashion</option><option>Blue Jean</option><option>Lazarus</option>
       </datalist>
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button type="submit" id="send">I'm in</button>
+      <button type="submit" id="send">M'apunto</button>
       <p class="msg" id="msg" role="status"></p>
     </form>
 
     <div class="done" id="done">
-      <h2>You're on the list</h2>
-      <p>See you on the dance floor. Don't tell him where it is.</p>
+      <h2>Ja ets a la llista!</h2>
+      <p>Ens veiem a la pista. I no li diguis on és, que encara la busca.</p>
+      <p class="pay">Últim pas: fes un Bizum de 18 € al Zai per reservar la teva entrada.</p>
     </div>
   </section>
 </div>
 
-<footer>Bowie 80 · A fan tribute</footer>
+<section class="info" aria-labelledby="info-title">
+  <div class="info-head">
+    <h3 id="info-title">Instruccions <span>per a la missió</span></h3>
+    <p>Tot el que cal saber abans d'aterrar a la festa. Llegeix-ho amb calma: a dins hi haurà massa música per explicar-ho.</p>
+  </div>
+
+  <div class="grid">
+    <article class="tile hot">
+      <div class="lbl">L'entrada</div>
+      <div class="big">18 €</div>
+      <p><b>Fes un Bizum al Zai</b> i la teva entrada queda reservada. Sense Bizum, no hi ha llista; i sense llista, no hi ha glamur.</p>
+    </article>
+
+    <article class="tile">
+      <div class="lbl">Què inclou</div>
+      <h4>7,5 € per beure</h4>
+      <p>Equival a <b>3 birres o vins</b>, o bé <b>un combinat</b>. La resta de l'entrada serveix per pagar el local.</p>
+      <p>Hi haurà patates i snacks, però <b>vine sopat</b>: ni les estrelles del rock sobreviuen a base de patates.</p>
+    </article>
+
+    <article class="tile">
+      <div class="lbl">A la barra</div>
+      <h4>Només efectiu</h4>
+      <p>Un cop gastada la consumició, a dins només es pot pagar en metàl·lic. Porta bitllets: aquí no hi ha datàfon interplanetari.</p>
+      <ul class="prices">
+        <li>Aigua o refresc <b>2 €</b></li>
+        <li>Birra o vi <b>3 €</b></li>
+        <li>Cubata <b>8 €</b></li>
+      </ul>
+    </article>
+
+    <article class="tile wide">
+      <div class="lbl">Horari</div>
+      <h4>De 22 h a 4 h… o no!</h4>
+      <p>Som en un local clandestí i underground, i aquí la puntualitat és sagrada. <b>Un cop es tanquin les portes, ja no es pot entrar</b>, perquè no hi pot haver gent entrant i sortint. Arriba a les 22 h en punt, amb el teu millor vestit i ganes de ballar fins que surti el sol.</p>
+    </article>
+
+    <article class="tile">
+      <div class="lbl">Fumadors</div>
+      <h4>Zones per fumar</h4>
+      <p>Es podrà fumar a dins, però <b>només a les zones habilitades</b>. Fum a l'escenari, sí; fum a tot arreu, no.</p>
+    </article>
+  </div>
+</section>
+
+<footer>Bowie 80 · Un homenatge de fans</footer>
 
 <script>
 /* ===== EDIT HERE ===== */
 var CONFIG = {
-  date:  "Fri 8 Jan 2027",
-  time:  "22:00",
+  date:  "Dv. 8 gen. 2027",
+  time:  "22 h",
   place: "La Bacanal",
   mapUrl: "https://maps.app.goo.gl/cqtD6J8fcMHhVHr88",
   endpoint: "https://script.google.com/macros/s/AKfycbytf_NVuWkhPH2i4vuTy2MuDx7zwVa80kfLtf6PhBnm9RiipmdfEK59xrJ9UqcgpcE/exec"
@@ -166,13 +234,13 @@ form.addEventListener("submit", function(e){
   msg.className = "msg"; msg.textContent = "";
   var name = form.name.value.trim(), song = form.song.value.trim();
   if (form.website.value) return;
-  if (!name) { msg.className = "msg err"; msg.textContent = "We need a name for the list."; form.name.focus(); return; }
-  btn.disabled = true; btn.textContent = "Sending…";
+  if (!name) { msg.className = "msg err"; msg.textContent = "Necessitem un nom per a la llista."; form.name.focus(); return; }
+  btn.disabled = true; btn.textContent = "Enviant…";
   fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", body: new URLSearchParams({ name: name, song: song }) })
     .then(function(){ form.style.display = "none"; document.getElementById("done").style.display = "block"; })
     .catch(function(){
-      btn.disabled = false; btn.textContent = "I'm in";
-      msg.className = "msg err"; msg.textContent = "Something went wrong. Try again.";
+      btn.disabled = false; btn.textContent = "M'apunto";
+      msg.className = "msg err"; msg.textContent = "Alguna cosa ha fallat. Torna-ho a provar.";
     });
 });
 </script>
