@@ -78,6 +78,18 @@
   .done p{font-size:16px;margin-top:6px}
   .done .pay{margin-top:14px;padding:12px 14px;background:var(--ink);color:var(--paper);font-weight:600;font-size:15px}
   .hp{position:absolute;left:-9999px}
+  .hint{font-size:13px;color:#555;margin-top:6px}
+  .choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 6px}
+  .choice input{position:absolute;opacity:0;pointer-events:none}
+  .choice label{margin:0;display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px;text-align:center;
+    border:2px solid var(--ink);cursor:pointer;font-size:13px;letter-spacing:.14em;transition:background .15s,color .15s}
+  .choice input:checked + label{background:var(--ink);color:var(--paper)}
+  .choice input#st-no:checked + label{background:var(--red);border-color:var(--red)}
+  .choice input:focus-visible + label{box-shadow:4px 4px 0 var(--blue)}
+  .deadline{margin-top:14px;padding:10px 12px;border-left:4px solid var(--red);background:#fff;font-size:14px;font-weight:600}
+  .deadline b{color:var(--red)}
+  .song-wrap[hidden]{display:none}
+  .tile h4 small{display:block;font-family:"Inter",sans-serif;font-size:11px;font-weight:800;letter-spacing:.25em;color:var(--red);margin-bottom:6px}
 
   /* practical info */
   .info{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:24px 32px 64px}
@@ -122,7 +134,7 @@
   <div class="top"><span>Bowie 80 · Homenatge</span><span>1947 — 2027</span></div>
 
   <section class="title">
-    <span class="kicker">On és la festa?</span>
+    <span class="kicker">Where are we now?</span>
     <h1>Bowie<span class="num">80</span></h1>
     <p class="tag">Fer vuitanta anys<br><b>mai havia quedat tan bé.</b></p>
   </section>
@@ -135,12 +147,19 @@
     </div>
 
     <form id="rsvp" novalidate>
-      <h2>Compta amb mi</h2>
-      <p class="sub">Posa el teu nom a la llista i porta els teus millors passos de ball.</p>
-      <label for="name">El teu nom</label>
-      <input id="name" name="name" required autocomplete="name" placeholder="Ziggy, segurament">
-      <label for="song">La teva cançó preferida de Bowie</label>
-      <input id="song" name="song" list="songs" placeholder="Per a la playlist de la festa">
+      <h2>Let's Dance</h2>
+      <p class="sub">Confirma'ns si vens… o si no podràs venir. Les dues respostes ens ajuden!</p>
+      <div class="choice" role="radiogroup" aria-label="Vens a la festa?">
+        <input type="radio" name="status" id="st-yes" value="yes" checked><label for="st-yes">Vinc!</label>
+        <input type="radio" name="status" id="st-no" value="no"><label for="st-no">No puc venir</label>
+      </div>
+      <label for="name">Nom i cognom (o sobrenom inconfusible)</label>
+      <input id="name" name="name" required autocomplete="name" placeholder="Ziggy Stardust">
+      <p class="hint">Hi ha gent que es diu igual: posa-hi el cognom o un sobrenom que només sigui teu.</p>
+      <div class="song-wrap" id="song-wrap">
+        <label for="song">La teva cançó preferida de Bowie</label>
+        <input id="song" name="song" list="songs" placeholder="Per a la playlist de la festa">
+      </div>
       <datalist id="songs">
         <option>Let's Dance</option><option>Modern Love</option><option>China Girl</option>
         <option>Starman</option><option>Heroes</option><option>Life on Mars?</option>
@@ -152,38 +171,50 @@
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit" id="send">M'apunto</button>
       <p class="msg" id="msg" role="status"></p>
+      <p class="deadline">Confirma i fes el Bizum <b>abans del 25 de desembre</b>. Les places són limitades!</p>
     </form>
 
-    <div class="done" id="done">
-      <h2>Ja ets a la llista!</h2>
-      <p>Ens veiem a la pista. I no li diguis on és, que encara la busca.</p>
-      <p class="pay">Últim pas: fes un Bizum de 18 € al Zai per reservar la teva entrada.</p>
+    <div class="done" id="done-yes">
+      <h2>Heroes!</h2>
+      <p>Ja ets a la llista. Ens veiem a la pista, i no li diguis on és, que encara la busca.</p>
+      <p class="pay">Últim pas: fes un Bizum de 20 € al Zai abans del 25 de desembre. Sense Bizum, la plaça no queda reservada.</p>
+    </div>
+    <div class="done" id="done-no">
+      <h2>Changes</h2>
+      <p>Llàstima! T'hem apuntat a la llista de baixes. Gràcies per avisar a temps: així podrem fer lloc a una altra persona.</p>
     </div>
   </section>
 </div>
 
 <section class="info" aria-labelledby="info-title">
   <div class="info-head">
-    <h3 id="info-title">Instruccions <span>per a la missió</span></h3>
-    <p>Tot el que cal saber abans d'aterrar a la festa. Llegeix-ho amb calma: a dins hi haurà massa música per explicar-ho.</p>
+    <h3 id="info-title">Station <span>to Station</span></h3>
+    <p>Tot el que cal saber abans d'aterrar a la festa, parada a parada. Llegeix-ho amb calma: a dins hi haurà massa música per explicar-ho.</p>
   </div>
 
   <div class="grid">
     <article class="tile hot">
-      <div class="lbl">L'entrada</div>
-      <div class="big">18 €</div>
-      <p><b>Fes un Bizum al Zai</b> i la teva entrada queda reservada. Sense Bizum, no hi ha llista; i sense llista, no hi ha glamur.</p>
+      <div class="lbl">Golden Years · L'entrada</div>
+      <div class="big">20 €</div>
+      <p><b>Fes un Bizum al Zai</b> i la teva plaça queda reservada. Sense Bizum, no hi ha llista; i sense llista, no hi ha glamur.</p>
+    </article>
+
+    <article class="tile hot">
+      <div class="lbl">Time · Data límit</div>
+      <div class="big">25 DES</div>
+      <p><b>Confirma i paga abans del 25 de desembre.</b> Les places són limitades i necessitem saber com més aviat millor qui vindrà… i qui no.</p>
+      <p>Si ja saps que no podràs venir, digues-nos-ho ara mateix al formulari amb l'opció <b>“No puc venir”</b>.</p>
     </article>
 
     <article class="tile">
-      <div class="lbl">Què inclou</div>
+      <div class="lbl">Fill Your Heart · Què inclou</div>
       <h4>7,5 € per beure</h4>
       <p>Equival a <b>3 birres o vins</b>, o bé <b>un combinat</b>. La resta de l'entrada serveix per pagar el local.</p>
       <p>Hi haurà patates i snacks, però <b>vine sopat</b>: ni les estrelles del rock sobreviuen a base de patates.</p>
     </article>
 
     <article class="tile">
-      <div class="lbl">A la barra</div>
+      <div class="lbl">Modern Love · A la barra</div>
       <h4>Només efectiu</h4>
       <p>Un cop gastada la consumició, a dins només es pot pagar en metàl·lic. Porta bitllets: aquí no hi ha datàfon interplanetari.</p>
       <ul class="prices">
@@ -193,14 +224,14 @@
       </ul>
     </article>
 
-    <article class="tile wide">
-      <div class="lbl">Horari</div>
+    <article class="tile">
+      <div class="lbl">Let's Spend the Night Together · Horari</div>
       <h4>De 22 h a 4 h… o no!</h4>
       <p>Som en un local clandestí i underground, i aquí la puntualitat és sagrada. <b>Un cop es tanquin les portes, ja no es pot entrar</b>, perquè no hi pot haver gent entrant i sortint. Arriba a les 22 h en punt, amb el teu millor vestit i ganes de ballar fins que surti el sol.</p>
     </article>
 
     <article class="tile">
-      <div class="lbl">Fumadors</div>
+      <div class="lbl">Ashes to Ashes · Fumadors</div>
       <h4>Zones per fumar</h4>
       <p>Es podrà fumar a dins, però <b>només a les zones habilitades</b>. Fum a l'escenari, sí; fum a tot arreu, no.</p>
     </article>
@@ -229,17 +260,27 @@ if (CONFIG.mapUrl) {
 } else { pl.textContent = CONFIG.place; }
 
 var form = document.getElementById("rsvp"), msg = document.getElementById("msg"), btn = document.getElementById("send");
+var songWrap = document.getElementById("song-wrap");
+function status(){ return form.querySelector('input[name="status"]:checked').value; }
+function syncStatus(){
+  var no = status() === "no";
+  songWrap.hidden = no;
+  btn.textContent = no ? "Envia la baixa" : "M'apunto";
+}
+Array.prototype.forEach.call(form.querySelectorAll('input[name="status"]'), function(r){ r.addEventListener("change", syncStatus); });
+syncStatus();
 form.addEventListener("submit", function(e){
   e.preventDefault();
   msg.className = "msg"; msg.textContent = "";
-  var name = form.name.value.trim(), song = form.song.value.trim();
+  var st = status(), name = form.name.value.trim(), song = st === "no" ? "" : form.song.value.trim();
   if (form.website.value) return;
-  if (!name) { msg.className = "msg err"; msg.textContent = "Necessitem un nom per a la llista."; form.name.focus(); return; }
+  if (!name) { msg.className = "msg err"; msg.textContent = "Necessitem el teu nom i cognom (o un sobrenom inconfusible)."; form.name.focus(); return; }
+  if (name.indexOf(" ") < 0 && name.length < 4) { msg.className = "msg err"; msg.textContent = "Afegeix-hi el cognom, que segur que hi ha algú que es diu igual!"; form.name.focus(); return; }
   btn.disabled = true; btn.textContent = "Enviant…";
-  fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", body: new URLSearchParams({ name: name, song: song }) })
-    .then(function(){ form.style.display = "none"; document.getElementById("done").style.display = "block"; })
+  fetch(CONFIG.endpoint, { method: "POST", mode: "no-cors", body: new URLSearchParams({ status: st, name: name, song: song }) })
+    .then(function(){ form.style.display = "none"; document.getElementById(st === "no" ? "done-no" : "done-yes").style.display = "block"; })
     .catch(function(){
-      btn.disabled = false; btn.textContent = "M'apunto";
+      btn.disabled = false; syncStatus();
       msg.className = "msg err"; msg.textContent = "Alguna cosa ha fallat. Torna-ho a provar.";
     });
 });
